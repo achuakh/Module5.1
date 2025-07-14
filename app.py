@@ -3,7 +3,6 @@ from flask import Flask, render_template, request
 from groq import Groq
 import joblib
 
-os.environ['GROQ_API_KEY'] = "" #local test
 
 app = Flask(__name__)
 
