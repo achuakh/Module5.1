@@ -1,5 +1,9 @@
+import os
 from flask import Flask, render_template, request
+from groq import Groq
 import joblib
+
+os.environ['GROQ_API_KEY'] = "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" #local test
 
 app = Flask(__name__)
 
@@ -8,14 +12,36 @@ def index():
     return(render_template("index.html"))
 
 @app.route("/main",methods=["GET","POST"])
+
 def main():
     q = request.form.get("q")
     # db
     return(render_template("main.html"))
 
+@app.route("/llama",methods=["GET","POST"])
+def llama():
+    return(render_template("llama.html"))
+
 @app.route("/dbs",methods=["GET","POST"])
 def dbs():
     return(render_template("dbs.html"))
+
+@app.route("/llama_reply",methods=["GET","POST"])
+def llama_reply():
+    q = request.form.get("q")
+    # load model
+    client = Groq() # the object
+
+    completion = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
+        messages=[
+            {
+                "role": "user",
+                "content": q
+            }
+        ]
+)
+    return(render_template("llama_reply.html",r=completion.choices[0].message.content))
 
 @app.route("/prediction",methods=["GET","POST"])
 def prediction():

@@ -6,12 +6,11 @@
 </head>
 <body>
     <div class="container">
-    <h2>Main</h2>
-        <form action="/llama" method="post">
-            <input type="submit" value="LLAMA Chat via Groq">
-        </form>
-    <form action="/dbs" method="post">
-            <input type="submit" value="Predict DBS price">
+    <h2>LLAMA chat via Groq</h2>
+        <form action="/llama_reply" method="post">
+            <p>Let me help you today, enter your question</p>
+            <input type="text" name="q">
+            <input type="submit" value="Enter">
         </form>
     </div>
 </body>
