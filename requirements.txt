@@ -1,2 +1,4 @@
 gunicon
 flask
+jobLib
+scikit-learn
