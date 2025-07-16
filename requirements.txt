@@ -3,3 +3,4 @@ flask
 jobLib
 scikit-learn
 groq
+requests
