@@ -4,10 +4,9 @@ from groq import Groq
 import joblib
 import requests
 
-
-os.environ['TELEGRAM_BOT_TOKEN'] = os.getenv("TELEGRAM_BOT_TOKEN")
-
 app = Flask(__name__)
+
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
 @app.route("/",methods=["GET","POST"])
 def index():
