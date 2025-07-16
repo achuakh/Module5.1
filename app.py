@@ -7,7 +7,9 @@ import requests
 app = Flask(__name__)
 
 # for local test
-
+#from dotenv import load_dotenv
+# Load environment variables from .env file
+#load_dotenv()
 #################
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
@@ -82,7 +84,7 @@ def deepseek_reply():
 def telegram():
 
     # domain URL - render.com project
-    domain_url = "https://module5-1.onrender.com"
+    domain_url = os.getenv("domain_url")
 
     # The following line is used to delete the existing webhook URL for the Telegram bot
     delete_webhook_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/deleteWebhook"
@@ -103,7 +105,8 @@ def telegram():
 @app.route("/telegram_stop",methods=["GET","POST"])
 def telegram_stop():
 
-    domain_url = "https://module5-1.onrender.com"
+    domain_url = os.getenv("domain_url")
+
 
     # The following line is used to delete the existing webhook URL for the Telegram bot
     delete_webhook_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/deleteWebhook"
@@ -149,7 +152,7 @@ def webhook():
     return('ok', 200)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":    
     app.run()
 
 # https://api.telegram.org/bot%7Bgroq_telegram_token%7D/setWebhook?url={domain_url}/webhook
