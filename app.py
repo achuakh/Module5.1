@@ -3,13 +3,15 @@ from flask import Flask, render_template, request
 from groq import Groq
 import joblib
 import requests
+import sqlite3
+import datetime
 
 app = Flask(__name__)
 
 # for local test
-#from dotenv import load_dotenv
+from dotenv import load_dotenv
 # Load environment variables from .env file
-#load_dotenv()
+load_dotenv()
 #################
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
@@ -23,7 +25,33 @@ def index():
 def main():
     q = request.form.get("q")
     # db
+    conn = sqlite3.connect('user.db')
+    conn.execute('INSERT INTO user (name, timestamp) VALUES (?, ?)', (q, datetime.datetime.now()))
+    conn.commit()
+    conn.close()
     return(render_template("main.html"))
+
+@app.route("/user_log",methods=["GET","POST"])
+def user_log():
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute('''select * from user''')
+    r=""
+    for row in c:
+      print(row)
+      r = r + str(row)
+    c.close()
+    conn.close()
+    return render_template("user_log.html", r=r)
+
+@app.route("/delete_log",methods=["GET","POST"])
+def delete_log():
+    conn = sqlite3.connect('user.db')
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM user')
+    conn.commit()
+    conn.close()
+    return render_template("delete_log.html", message="User log deleted successfully.")
 
 @app.route("/dbs",methods=["GET","POST"])
 def dbs():
