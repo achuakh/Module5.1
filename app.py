@@ -16,6 +16,7 @@ load_dotenv()
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
+
 @app.route("/",methods=["GET","POST"])
 def index():
     return(render_template("index.html"))
@@ -128,7 +129,7 @@ def telegram():
     else:
         status = "Failed to start the telegram bot. Please check the logs."
 
-    return(render_template("telegram.html"))
+    return(render_template("telegram.html",status=status))
 
 @app.route("/telegram_stop",methods=["GET","POST"])
 def telegram_stop():
