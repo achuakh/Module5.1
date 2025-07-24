@@ -180,6 +180,10 @@ def webhook():
         })
     return('ok', 200)
 
+@app.route("/sepia",methods=["GET","POST"])
+def sepia():
+    return(render_template("sepia.html"))
+
 
 if __name__ == "__main__":    
     app.run()
