@@ -9,9 +9,9 @@ import datetime
 app = Flask(__name__)
 
 # for local test
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 # Load environment variables from .env file
-load_dotenv()
+#load_dotenv()
 #################
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
